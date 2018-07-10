@@ -1,12 +1,6 @@
-var MongoClient = require('mongodb').MongoClient
-  , Server = require('mongodb').Server;
-
-var mongoClient = new MongoClient(new Server('localhost', 27017));
-mongoClient.open(function(err, mongoClient) {
-  var db1 = mongoClient.db("mydb");
-
-  mongoClient.close();
-});
+var http = require('http');
+var MongoClient = require('mongodb').MongoClient;
+var server = require('websocket').server;
 
 startMongoDBConnection();
 
@@ -24,7 +18,8 @@ MongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true }, function(
 
 
 var listCryptoCurrency = function(db, callback) {
-	var cursor = db.collection('CryptoCurrency').find();
+	var cursor = db.collection('CryptoCurrency').find(
+		);
 	cursor.each(function(err, doc){
 		console.log(doc);
 		callback();
