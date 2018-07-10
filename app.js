@@ -9,7 +9,7 @@ MongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true }, function(
 	if (err) {
 		console.log(err);
 	} else {
-		listProducts(db, function(){
+		listCryptoCurrency(db, function(){
 			db.close();
 		});
 	}
