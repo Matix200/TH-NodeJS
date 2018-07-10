@@ -4,10 +4,12 @@
 	"author": "Dave Winer <dave@smallpicture.com>",
 	"version": "0.64.0",
 	"scripts": {
-		"start": "node noderunner.js"
+		"start": "node app.js"
 			},
 	"dependencies" : {
 		"aws-sdk": "*", 
+		"websocket": "1.0.x",
+		"mongodb": ">= 0.9.6-7",
 		"request": "*"
 		}, 
 	"license": "MIT",
