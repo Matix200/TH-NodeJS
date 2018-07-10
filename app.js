@@ -1,6 +1,7 @@
 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+var request = require('request');
 
 // Connection URL
 const url = process.env.MONGODB_URI;
@@ -29,3 +30,10 @@ function findDocuments(db, callback) {
       callback(docs);
   });
 }
+
+request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var info = JSON.parse(body)
+      console.log(info)
+    }
+})
