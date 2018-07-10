@@ -1,11 +1,17 @@
-var http = require('http');
-var MongoClient = require('mongodb').MongoClient;
-var server = require('websocket').server;
+var MongoClient = require('mongodb').MongoClient
+  , Server = require('mongodb').Server;
+
+var mongoClient = new MongoClient(new Server('localhost', 27017));
+mongoClient.open(function(err, mongoClient) {
+  var db1 = mongoClient.db("mydb");
+
+  mongoClient.close();
+});
 
 startMongoDBConnection();
 
 function startMongoDBConnection(){
-MongoClient.connect(process.env.MONGODB_URI, function(err, db){
+MongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true }, function(err, db){
 	if (err) {
 		console.log(err);
 	} else {
