@@ -1,26 +1,31 @@
-var http = require('http');
-var MongoClient = require('mongodb').MongoClient;
-var server = require('websocket').server;
 
-startMongoDBConnection();
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
-function startMongoDBConnection(){
-MongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true }, function(err, db){
-	if (err) {
-		console.log(err);
-	} else {
-		listCryptoCurrency(db, function(){
-			db.close();
-		});
-	}
+// Connection URL
+const url = process.env.MONGODB_URI;
+
+// Database Name
+const dbName = 'heroku_n9471zh2';
+
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+
+  const db = client.db(dbName);
+
+  findDocuments(db, function() {
+    client.close();
+  });
 });
-}
 
-var listCryptoCurrency = function(db, callback) {
-	var cursor = db.collection('CryptoCurrency').find({});
-	}
-	cursor.each(function(err, doc){
-		console.log(doc);
-		callback();
-	});
+function findDocuments(db, callback) {
+  const collection = db.collection( 'CryptoCurrency' );
+  collection.find().toArray(function(err, docs) {
+      assert.equal(err, null);
+      console.log("Found the following records");
+      console.log(docs)
+      callback(docs);
+  });
 }
