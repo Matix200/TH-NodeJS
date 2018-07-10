@@ -17,8 +17,8 @@ MongoClient.connect(process.env.MONGODB_URI, {useNewUrlParser: true }, function(
 }
 
 var listCryptoCurrency = function(db, callback) {
-	var cursor = db.collection('CryptoCurrency').find(
-		);
+	var cursor = db.collection('CryptoCurrency').find({});
+	}
 	cursor.each(function(err, doc){
 		console.log(doc);
 		callback();
