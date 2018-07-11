@@ -3,6 +3,9 @@
 	"description": "A Node.js app that runs scripts every second, minute, hour or day, each group in its own folder.",
 	"author": "Dave Winer <dave@smallpicture.com>",
 	"version": "0.64.0",
+	"scripts": {
+		"start": "node app.js"
+			},
 	"dependencies" : {
 		"aws-sdk": "*", 
 		"websocket": "1.0.x",
