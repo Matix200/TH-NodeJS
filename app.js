@@ -70,8 +70,9 @@ function getNews(x, db){
 
 
 function findNews(db, x) {
+	var id = ArrayNews[x].ID;
   const collection = db.collection( 'News' );
-  collection.find({ 'ID_CP' : ArrayNews[x].ID }).toArray(function(err, docs) {
+  collection.find({ 'ID_CP' :  id}).toArray(function(err, docs) {
       assert.equal(err, null);
       console.log("Found the following records");
       console.log(docs)
