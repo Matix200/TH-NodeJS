@@ -14,7 +14,7 @@ Parse.serverURL = process.env.SERVER_URL;
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
 
-
+app.get('/', function(request, response) {
 var page = 1;
 
 getLastNews();
@@ -132,8 +132,11 @@ AllCoinsFromParse.push(idname);
 console.log(AllCoinsFromParse);
  });
 }
+}).listen(app.get(3000), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
 
-app.listen(3000)
+
 
 
 
