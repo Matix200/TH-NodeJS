@@ -87,7 +87,7 @@ News.set("CountLikes", 0);
 News.save().then(function(results) {
 	console.log("GIT: "+ results+" x:"+x+" max:"+ArrayNews.length+" y:"+y);
 
-	if(ArrayNews.length == x){
+	if(ArrayNews.length == (x-1)){
 		console.log("Get next NEWS");
 		GetNewsApi(y+1);
 	}else{
