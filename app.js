@@ -3,6 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
+var ParseRest = require('parse-rest-nodejs');
 import ParseRest from 'parse-rest-nodejs';
 
 // Connect Redis
