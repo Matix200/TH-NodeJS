@@ -11,7 +11,7 @@ const url = process.env.MONGODB_URI;
 // Database Name
 const dbName = 'heroku_n9471zh2';
 
-var ArrayNews = [];
+
 
 var page = 1;
 // Use connect method to connect to the Server
@@ -25,7 +25,7 @@ GetNewsApi(db, page);
 });
 
 
-
+var ArrayNews = [];
 
 
 function GetNewsApi(db, y){
@@ -59,21 +59,19 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-      console.log(ArrayNews[0]);
-      console.log(ArrayNews[0].ID_CP);
-      getNews(0, db);
+      getNews(0, db, ArrayNews);
     }
 })
 }, 40000);
 }
 
 
-function getNews(x, db){
- var check = findNews(db, ArrayNews[x].ID_CP);  
+function getNews(x, db, array){
+ var check = findNews(db, array[x].ID_CP);  
  if(check == true){
- 	saveNews(x, db);
+ 	saveNews(x, db, array);
  }else{
-	getNews(x+1, db);
+	getNews(x+1, db, array);
  }
 }
 
@@ -90,17 +88,17 @@ function findNews(db, id) {
   });
 }
 
-function saveNews(x, db){
-if(ArrayNews.length == x) GetNewsApi(db, page+1);
+function saveNews(x, db, array){
+if(array.length == x) GetNewsApi(db, page+1);
 
-var doc = { "ID_CP" : ArrayNews[x].ID_CP,
-  			"created_at" : ArrayNews[x].created_at,
-  			"slug" : ArrayNews[x].slug,
-  			"title" : ArrayNews[x].title,
-  			"source" : ArrayNews[x].source,
-  			"currencies" : ArrayNews[x].currencies,
-  			"published_at" : ArrayNews[x].published_at,
-  			"url" : ArrayNews[x].url }
+var doc = { "ID_CP" : array[x].ID_CP,
+  			"created_at" : array[x].created_at,
+  			"slug" : array[x].slug,
+  			"title" : array[x].title,
+  			"source" : array[x].source,
+  			"currencies" : array[x].currencies,
+  			"published_at" : array[x].published_at,
+  			"url" : array[x].url }
 
   db.collection('News').insertOne(doc, function (error, response) {
     if(error) {
