@@ -44,7 +44,8 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 	ArrayNews = [];
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
-      console.log(info.results);
+      info = info.results;
+      console.log(info);
      
       for(var i in info){
       	var id = info[i].id;
