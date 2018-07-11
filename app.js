@@ -28,6 +28,12 @@ GetNewsApi(db, page);
 var ArrayNews = [];
 
 
+function getAllNewsMongo(){
+console.log('AA');
+
+}
+
+
 function GetNewsApi(db, y){
 setTimeout(function(){
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+y, function (error, response, body) {
@@ -52,53 +58,21 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
       }
       console.log(ArrayNews);
   //    getNews(0, db);
+  		saveNews(y,  db)
     }
 })
-}, 40000);
+}, 10000);
 }
 
 
-function getNews(x, db){
- var check = findNews(db, x);  
- if(check == true){
- 	saveNews(x, db);
- }else{
-	getNews(x+1, db);
- }
-}
-
-
-
-function findNews(db, x) {
-	var id = ArrayNews[x].ID;
-  const collection = db.collection( 'News' );
-  collection.find({ 'ID_CP' :  id}).toArray(function(err, docs) {
-      assert.equal(err, null);
-      console.log("Found the following records");
-      console.log(docs)
-      if(docs == null){return true}
-  });
-}
-
-function saveNews(x, db){
-if(ArrayNews.length == x) GetNewsApi(db, page+1);
-
-var doc = { "ID_CP" : ArrayNews[x].ID,
-  			"created_at" : ArrayNews[x].created_at,
-  			"slug" : ArrayNews[x].slug,
-  			"title" : ArrayNews[x].title,
-  			"source" : ArrayNews[x].source,
-  			"currencies" : ArrayNews[x].currencies,
-  			"published_at" : ArrayNews[x].published_at,
-  			"url" : ArrayNews[x].url }
-
-  db.collection('News').insertOne(doc, function (error, response) {
+function saveNews(y, db){
+  db.collection('News').insertMany(ArrayNews, function (error, response) {
     if(error) {
         console.log('Error occurred while inserting');
        saveNews(x, db)
     } else {
        console.log('inserted record', response.ops[0]);
-       getNews(x+1, db);
+        GetNewsApi(db, y+1);
       // return 
     }
 });
