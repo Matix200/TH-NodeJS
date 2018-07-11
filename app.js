@@ -38,24 +38,15 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
       console.log(info);
      
       for(var i in info){
-      	var id = info[i].id;
-      	var created_at = info[i].created_at;
-      	var slug = info[i].slug;
-      	var title = info[i].title;
-      	var source = info[i].source;
-      	var currencies = info[i].currencies;
-      	var published_at = info[i].published_at;
-      	var url = info[i].url;
-
   		ArrayNews.push({
-  			"ID" : id,
-  			"created_at" : created_at,
-  			"slug" : slug,
-  			"title" : title,
-  			"source" : source,
-  			"currencies" : currencies,
-  			"published_at" : published_at,
-  			"url" : url
+  			"ID" : info[i].id,
+  			"created_at" : info[i].created_at,
+  			"slug" : info[i].slug,
+  			"title" : info[i].title,
+  			"source" : info[i].source,
+  			"currencies" : info[i].currencies,
+  			"published_at" : info[i].published_at,
+  			"url" : info[i].url
 
   		})
       }
@@ -68,8 +59,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
 
 function getNews(x, db){
-console.log(x, ArrayNews[0]);
- var check = findNews(db, ArrayNews[x].ID);  
+ var check = findNews(db, x);  
  if(check == true){
  	saveNews(x, db);
  }else{
@@ -79,21 +69,20 @@ console.log(x, ArrayNews[0]);
 
 
 
-function findNews(db, id) {
+function findNews(db, x) {
   const collection = db.collection( 'News' );
-  collection.find({ 'ID_CP' : id }).toArray(function(err, docs) {
+  collection.find({ 'ID_CP' : ArrayNews[x].ID }).toArray(function(err, docs) {
       assert.equal(err, null);
       console.log("Found the following records");
       console.log(docs)
-      if(docs != null){
-      return true}
+      if(docs == null){return true}
   });
 }
 
 function saveNews(x, db){
 if(ArrayNews.length == x) GetNewsApi(db, page+1);
 
-var doc = { "ID_CP" : ArrayNews[x].ID_CP,
+var doc = { "ID_CP" : ArrayNews[x].ID,
   			"created_at" : ArrayNews[x].created_at,
   			"slug" : ArrayNews[x].slug,
   			"title" : ArrayNews[x].title,
