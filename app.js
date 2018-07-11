@@ -30,7 +30,7 @@ var ArrayNews = [];
 getAllNewsMongo();
 
 function getAllNewsMongo(){
-parseRest.get('/classes/Calendar').then((success) => {
+parseRest.get('/classes/__Calendar__').then((success) => {
   console.log(success);
 }, (error) => {
   console.error(error);
