@@ -67,7 +67,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
 function saveNews(y, db, array){
 //if(array.length == x) { GetNewsApi(db, y+1)}else{
-  db.collection('News').insertMany({array} ,forceServerObjectId=true,function (err,data) {
+  db.collection('News').insertMany(array ,serializeFunctions=true, forceServerObjectId=true,function (err,data) {
 
         if(err!=null){
             return console.log(err);
