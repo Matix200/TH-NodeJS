@@ -65,17 +65,18 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
 
 function saveNews(x, y, db, array){
-	console.log(array)
+if(array.length == x) { GetNewsApi(db, y+1)}else{
   db.collection('News').insertOne(array[x], function (error, response) {
     if(error) {
         console.log('Error occurred while inserting');
-       saveNews(x, db, array)
+       saveNews(x, y, db, array)
     } else {
        console.log('inserted record', response.ops[0]);
-        GetNewsApi(db, y+1);
+       saveNews(x+1, y, db, array)
       // return 
     }
 });
+}
 }
 
 
