@@ -33,7 +33,7 @@ Query_News.find().then(function(objCoin){
 var ID = objCoin[i].get("ID");
 AllCoinsFromParse.push(ID);
 }
-GetNewsApi(page);
+GetNewsApi();
 console.log(AllCoinsFromParse);
  });
 }
