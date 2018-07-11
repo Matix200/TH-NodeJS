@@ -69,7 +69,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-      getNews(x);
+      getNews(0);
     }
 })
 }, 40000);
