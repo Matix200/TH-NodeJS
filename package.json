@@ -10,6 +10,7 @@
 		"aws-sdk": "*", 
 		"websocket": "1.0.x",
 		"mongodb": "3.1.1",
+		"ioredis": "3.2.2",
 		"request": "*"
 		}, 
 	"license": "MIT",
