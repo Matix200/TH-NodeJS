@@ -132,7 +132,7 @@ AllCoinsFromParse.push(idname);
 console.log(AllCoinsFromParse);
  });
 }
-}).listen(app.get(3000), function() {
+}).listen(3000, function() {
     console.log('App is running, server is listening on port ', app.get('port'));
 });
 
