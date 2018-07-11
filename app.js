@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
-
+import ParseRest from 'parse-rest-nodejs';
 
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
@@ -27,11 +27,14 @@ GetNewsApi(db, page);
 
 
 var ArrayNews = [];
-
+getAllNewsMongo();
 
 function getAllNewsMongo(){
-console.log('AA');
-
+parseRest.get('/classes/Calendar').then((success) => {
+  console.log(success);
+}, (error) => {
+  console.error(error);
+});
 }
 
 
@@ -58,25 +61,12 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
   //    getNews(0, db);
-  		saveNews(0, y,  db, ArrayNews);
     }
 })
 }, 30000);
 }
 
 
-function saveNews(y, db, array){
-//if(array.length == x) { GetNewsApi(db, y+1)}else{
-  db.collection('News').insertMany(array ,serializeFunctions=true, forceServerObjectId=true,function (err,data) {
-
-        if(err!=null){
-            return console.log(err);
-        }
-        console.log(data.ops);
-        GetNewsApi(db, y+1);
-    });
-//}
-}
 
 
 
