@@ -50,8 +50,8 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-      console.log(ArrayNews[0].ID);
-      getNews(0, db);
+      console.log(ArrayNews);
+  //    getNews(0, db);
     }
 })
 }, 40000);
