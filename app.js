@@ -11,34 +11,33 @@ Parse.serverURL = process.env.SERVER_URL;
 
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
-// Connection URL
-const url = process.env.MONGODB_URI;
 
-// Database Name
-const dbName = 'heroku_n9471zh2';
 
 var page = 1;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected correctly to server");
+GetNewsApi(page);
 
-  const db = client.db(dbName);
-
-GetNewsApi(db, page);
-});
 
 
 var ArrayNews = [];
+var AllCoinsFromParse = [];
 
-
-function getAllNewsMongo(){
-console.log('AA');
-
+function getLastNews(){
+var News = Parse.Object.extend("News");
+var Query_News = new Parse.Query(News);
+Query_News.exists("ID");
+Query_News.limit(300);
+Query_News.descending("createdAt");
+Query_News.find().then(function(objCoin){
+    for(var i in objCoin){
+var ID = objCoin[i].get("ID");
+AllCoinsFromParse.push(ID);
+}
+console.log(AllCoinsFromParse);
+ });
 }
 
 
-function GetNewsApi(db, y){
+function GetNewsApi(y){
 setTimeout(function(){
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+y, function (error, response, body) {
 	ArrayNews = [];
@@ -60,12 +59,47 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-  //    getNews(0, db);
-  		saveNews(0, y,  db, ArrayNews)
+     saveNews(0, ArrayNews)
     }
 })
 }, 30000);
 }
+
+
+function saveNews(x, ArrayNews){
+if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){console.log(ArrayNews[x].ID+" ID already exist")}else{	
+setTimeout(function(){  
+var News = Parse.Object.extend("News");
+News  = new News();
+News.set("ID", ArrayNews[x].ID);
+News.set("created_at", ArrayNews[x].created_at);
+News.set("slug", ArrayNews[x].slug);
+News.set("title", ArrayNews[x].title);
+News.set("source", ArrayNews[x].source);
+News.set("currencies", ArrayNews[x].currencies);
+News.set("published_at", ArrayNews[x].published_at);
+News.set("url", ArrayNews[x].url);
+News.set("CountLikes", 0);
+News.save().then(function(results) {
+	console.log("GIT: "+ results);
+
+	if(ArrayNews.length == x){
+		GetNewsApi(y+1)
+	}else{
+	AllCoinsFromParse.push(ArrayNews[x].ID);
+    saveNews(x+1, ArrayNews);
+	}
+  })
+  .catch(function(error) {
+  	console.log("GIT: "+ error.message);
+    saveNews(x, ArrayNews);
+  });
+},200);
+}
+}
+
+
+
 
 
 function getAllCoinsValueFromCMC(){
@@ -83,9 +117,6 @@ console.log(AllCoinsFromParse);
  });
 }
 
-
-
-getAllCoinsValueFromCMC();
 
 
 
