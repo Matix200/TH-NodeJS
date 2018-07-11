@@ -3,6 +3,20 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
+var express = require('express');
+var app = express();
+
+import ParseRest from 'parse-rest-nodejs';
+const parseRest = new ParseRest(req);
+
+
+process.env.SERVER_URL = "http://__host__/parse"
+process.env.APP_ID = "__app_id__";
+process.env.MASTER_KEY = "__master_key__";
+
+
+
+
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
 // Connection URL
@@ -10,7 +24,6 @@ const url = process.env.MONGODB_URI;
 
 // Database Name
 const dbName = 'heroku_n9471zh2';
-
 
 
 var page = 1;
@@ -57,26 +70,24 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
   //    getNews(0, db);
-  		saveNews(0, y,  db, ArrayNews)
+  		saveNews(0, y,  db, ArrayNews);
     }
 })
 }, 30000);
 }
 
 
-function saveNews(x, y, db, array){
-if(array.length == x) { GetNewsApi(db, y+1)}else{
-  db.collection('News').insertOne(array[x], function (error, response) {
-    if(error) {
-        console.log('Error occurred while inserting');
-       saveNews(x, y, db, array)
-    } else {
-       console.log('inserted record', response.ops[0]);
-       saveNews(x+1, y, db, array)
-      // return 
-    }
-});
-}
+function saveNews(y, db, array){
+//if(array.length == x) { GetNewsApi(db, y+1)}else{
+  db.collection('News').insertMany(array ,forceServerObjectId=true,function (err,data) {
+
+        if(err!=null){
+            return console.log(err);
+        }
+        console.log(data.ops);
+        GetNewsApi(db, y+1);
+    });
+//}
 }
 
 
