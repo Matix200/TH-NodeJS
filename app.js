@@ -3,9 +3,8 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
-var express = require('express');
 var Parse = require('parse/node');
-var app = express()
+
 
 Parse.initialize(process.env.APP_ID, process.env.JS_KEY ,process.env.MASTER_KEY);
 Parse.serverURL = process.env.SERVER_URL;
@@ -14,10 +13,6 @@ Parse.serverURL = process.env.SERVER_URL;
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
 
-app.get('/', function(request, response) {
-}).listen(3000, function() {
-    console.log('App is running, server is listening on port  3000');
-});
 
 var page = 1;
 
@@ -43,10 +38,8 @@ console.log(AllCoinsFromParse);
  });
 }
 
-
-function GetNewsApi(y){
-setInterval(function(){
-request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+y, function (error, response, body) {
+var reqTimer = setTimeout(function GetNewsApi() {
+request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page, function (error, response, body) {
 	ArrayNews = [];
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
@@ -66,15 +59,15 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-     saveNews(0, y,  ArrayNews);
+     saveNews(0, page,  ArrayNews);
     }
 })
-}, 40000);
-}
+   return reqTimer = setTimeout(GetNewsApi, 60000);
+}, 60000);
 
 var omitted = 0;
 
-function saveNews(x, y, ArrayNews){
+function saveNews(x, ArrayNews){
 if(omitted == 10){
 GetNewsApi(1);
 return true
@@ -105,7 +98,8 @@ News.save().then(function(results) {
 
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
-		GetNewsApi(y+1);
+		page+1;
+		GetNewsApi();
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
     saveNews(x+1, y, ArrayNews);
