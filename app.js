@@ -15,6 +15,10 @@ Parse.serverURL = process.env.SERVER_URL;
 var redis = new Redis(process.env.REDIS_URL);
 
 app.get('/', function(request, response) {
+}).listen(3000, function() {
+    console.log('App is running, server is listening on port  3000');
+});
+
 var page = 1;
 
 getLastNews();
@@ -132,9 +136,6 @@ AllCoinsFromParse.push(idname);
 console.log(AllCoinsFromParse);
  });
 }
-}).listen(3000, function() {
-    console.log('App is running, server is listening on port ', app.get('port'));
-});
 
 
 
