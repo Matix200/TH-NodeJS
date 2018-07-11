@@ -66,7 +66,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
 
 function getNews(x, db){
- var check = findNews(db, ArrayNews[x].id);  
+ var check = findNews(db, ArrayNews[x].ID_CP);  
  if(check == true){
  	saveNews(x);
  }else{
@@ -90,7 +90,7 @@ function findNews(db, id) {
 function saveNews(x, db){
 if(ArrayNews.length == x) GetNewsApi();
 
-var doc = { "ID_CP" : ArrayNews[x].id,
+var doc = { "ID_CP" : ArrayNews[x].ID_CP,
   			"created_at" : ArrayNews[x].created_at,
   			"slug" : ArrayNews[x].slug,
   			"title" : ArrayNews[x].title,
