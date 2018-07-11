@@ -13,6 +13,7 @@ const dbName = 'heroku_n9471zh2';
 
 var ArrayNews = [];
 
+var page = 1;
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, client) {
   assert.equal(null, err);
@@ -20,16 +21,16 @@ MongoClient.connect(url, function(err, client) {
 
   const db = client.db(dbName);
 
-GetNewsApi(db);
+GetNewsApi(db, page);
 });
 
 
 
 
 
-function GetNewsApi(db){
+function GetNewsApi(db, y){
 setTimeout(function(){
-request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0', function (error, response, body) {
+request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+y, function (error, response, body) {
 	ArrayNews = [];
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
@@ -59,6 +60,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
       console.log(ArrayNews[0]);
+      console.log(ArrayNews[0].ID_CP);
       getNews(0, db);
     }
 })
@@ -69,7 +71,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 function getNews(x, db){
  var check = findNews(db, ArrayNews[x].ID_CP);  
  if(check == true){
- 	saveNews(x);
+ 	saveNews(x, db);
  }else{
 	getNews(x+1, db);
  }
@@ -89,7 +91,7 @@ function findNews(db, id) {
 }
 
 function saveNews(x, db){
-if(ArrayNews.length == x) GetNewsApi();
+if(ArrayNews.length == x) GetNewsApi(db, page+1);
 
 var doc = { "ID_CP" : ArrayNews[x].ID_CP,
   			"created_at" : ArrayNews[x].created_at,
