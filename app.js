@@ -3,18 +3,6 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
-var express = require('express');
-var app = express();
-
-import ParseRest from 'parse-rest-nodejs';
-const parseRest = new ParseRest(req);
-
-
-process.env.SERVER_URL = "http://__host__/parse"
-process.env.APP_ID = "__app_id__";
-process.env.MASTER_KEY = "__master_key__";
-
-
 
 
 // Connect Redis
