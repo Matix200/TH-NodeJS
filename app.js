@@ -57,19 +57,19 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
   //    getNews(0, db);
-  		saveNews(y,  db, ArrayNews)
+  		saveNews(0, y,  db, ArrayNews)
     }
 })
 }, 30000);
 }
 
 
-function saveNews(y, db, array){
+function saveNews(x, y, db, array){
 	console.log(array)
-  db.collection('News').insertMany(array, function (error, response) {
+  db.collection('News').insertOne(array[x], function (error, response) {
     if(error) {
         console.log('Error occurred while inserting');
-       saveNews(x, db)
+       saveNews(x, db, array)
     } else {
        console.log('inserted record', response.ops[0]);
         GetNewsApi(db, y+1);
