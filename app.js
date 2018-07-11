@@ -3,7 +3,9 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
+var express = require('express');
 var Parse = require('parse/node');
+var app = express()
 
 Parse.initialize(process.env.APP_ID, process.env.JS_KEY ,process.env.MASTER_KEY);
 Parse.serverURL = process.env.SERVER_URL;
@@ -130,6 +132,8 @@ AllCoinsFromParse.push(idname);
 console.log(AllCoinsFromParse);
  });
 }
+
+app.listen(3000)
 
 
 
