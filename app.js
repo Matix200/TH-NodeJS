@@ -35,7 +35,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
       info = info.results;
-      console.log(info);
+     // console.log(info);
      
       for(var i in info){
   		ArrayNews.push({
