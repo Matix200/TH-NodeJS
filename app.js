@@ -13,7 +13,7 @@ Parse.serverURL = process.env.SERVER_URL;
 var redis = new Redis(process.env.REDIS_URL);
 
 
-var page = 1;
+var page = 9;
 GetNewsApi(page);
 
 
@@ -89,7 +89,7 @@ News.save().then(function(results) {
 
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
-		GetNewsApi(y+1);
+		GetNewsApi(y-1);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
     saveNews(x+1, y, ArrayNews);
