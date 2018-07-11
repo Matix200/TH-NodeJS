@@ -67,8 +67,9 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 }
 
 var omitted = 0;
+
 function saveNews(x, y, ArrayNews){
-if(omitted == 5){
+if(omitted == 10){
 GetNewsApi(1);
 return true
 }else{
