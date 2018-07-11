@@ -11,7 +11,7 @@
 		"websocket": "1.0.x",
 		"mongodb": "3.1.1",
 		"ioredis": "3.2.2",
-		"parse-rest-nodejs": "0.1.9",
+		"parse": "1.11.1",
 		"express": "4.16.3",
 		"request": "*"
 		}, 

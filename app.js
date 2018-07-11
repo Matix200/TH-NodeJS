@@ -3,8 +3,11 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
-var ParseRest = require('parse-rest-nodejs');
-import ParseRest from 'parse-rest-nodejs';
+var Parse = require('parse/node');
+
+Parse.initialize(process.env.APP_ID, process.env.JS_KEY ,process.env.MASTER_KEY);
+Parse.serverURL = process.env.SERVER_URL;
+
 
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
@@ -13,7 +16,6 @@ const url = process.env.MONGODB_URI;
 
 // Database Name
 const dbName = 'heroku_n9471zh2';
-
 
 var page = 1;
 // Use connect method to connect to the Server
@@ -28,14 +30,11 @@ GetNewsApi(db, page);
 
 
 var ArrayNews = [];
-getAllNewsMongo();
+
 
 function getAllNewsMongo(){
-parseRest.get('/classes/__Calendar__').then((success) => {
-  console.log(success);
-}, (error) => {
-  console.error(error);
-});
+console.log('AA');
+
 }
 
 
@@ -62,16 +61,31 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
   //    getNews(0, db);
+  		saveNews(0, y,  db, ArrayNews)
     }
 })
 }, 30000);
 }
 
 
+function getAllCoinsValueFromCMC(){
+var AllCoinsFromParse = [];    
+var CryptoCurrency = Parse.Object.extend("CryptoCurrency");
+var Query_CryptoCurrency = new Parse.Query(CryptoCurrency);
+Query_CryptoCurrency.exists("IMGfile");
+Query_CryptoCurrency.limit(2000);
+Query_CryptoCurrency.find().then(function(objCoin){
+    for(var i in objCoin){
+var idname = objCoin[i].get("IMGfile");
+AllCoinsFromParse.push(idname);
+}
+console.log(AllCoinsFromParse);
+ });
+}
 
 
 
-
+getAllCoinsValueFromCMC();
 
 
 
