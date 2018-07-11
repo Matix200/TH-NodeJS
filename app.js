@@ -20,25 +20,14 @@ MongoClient.connect(url, function(err, client) {
 
   const db = client.db(dbName);
 
-  findDocuments(db, function() {
-    client.close();
-  });
+GetNewsApi(db);
 });
 
 
-function findDocuments(db, callback) {
-  const collection = db.collection( 'CryptoCurrency' );
-  collection.find().toArray(function(err, docs) {
-      assert.equal(err, null);
-      console.log("Found the following records");
-      console.log(docs)
-      callback(docs);
-  });
-}
 
-GetNewsApi();
 
-function GetNewsApi(){
+
+function GetNewsApi(db){
 setTimeout(function(){
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0', function (error, response, body) {
 	ArrayNews = [];
@@ -69,19 +58,19 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 
   		})
       }
-      getNews(0);
+      getNews(0, db);
     }
 })
 }, 40000);
 }
 
 
-function getNews(x){
+function getNews(x, db){
  var check = findNews(db, id);  
  if(check == true){
  	saveNews(x);
  }else{
-	getNews(x+1);
+	getNews(x+1, db);
  }
 }
 
@@ -98,7 +87,7 @@ function findNews(db, id) {
   });
 }
 
-function saveNews(x){
+function saveNews(x, db){
 if(ArrayNews.length == x) GetNewsApi();
 
 var doc = { "ID_CP" : ArrayNews[x].id,
@@ -113,10 +102,10 @@ var doc = { "ID_CP" : ArrayNews[x].id,
   db.collection('News').insertOne(doc, function (error, response) {
     if(error) {
         console.log('Error occurred while inserting');
-       saveNews(x)
+       saveNews(x, db)
     } else {
        console.log('inserted record', response.ops[0]);
-       getNews(x+1);
+       getNews(x+1, db);
       // return 
     }
 });
