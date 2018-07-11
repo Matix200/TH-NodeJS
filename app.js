@@ -69,10 +69,10 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 function saveNews(x, y, ArrayNews){
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){console.log(ArrayNews[x].ID+" ID already exist")}else{	
 setTimeout(function(){  
-    var e = new Date(eDate);
-    var c = new Date(cDate);
-    e.setDate(e.getDate() + 1);
-    c.setDate(c.getDate() + 1);	
+    var e = new Date(ArrayNews[x].published_at);
+    var c = new Date(ArrayNews[x].created_at);
+  //  e.setDate(e.getDate() + 1);
+  //  c.setDate(c.getDate() + 1);	
 var News = Parse.Object.extend("News");
 News  = new News();
 News.set("ID", ArrayNews[x].ID);
