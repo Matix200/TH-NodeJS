@@ -80,10 +80,6 @@ var omitted = 0;
 
 
 
-
-
-
-
 function saveNews(){ 
 if(omitted == 10){
 page = 1;
@@ -100,8 +96,12 @@ return SaveTime = setTimeout(saveNews, 1000);
 
     var e = new Date(ArrayNews[x].published_at);
     var c = new Date(ArrayNews[x].created_at);
-  //  e.setDate(e.getDate() + 1);
-  //  c.setDate(c.getDate() + 1);	
+var coins = ArrayNews[x].currencies;
+var AllCoins = [];
+for(var c in coins){
+AllCoins.push(coins[c].code);
+}
+
 var News = Parse.Object.extend("News");
 News  = new News();
 News.set("ID", ArrayNews[x].ID);
@@ -110,6 +110,7 @@ News.set("slug", ArrayNews[x].slug);
 News.set("title", ArrayNews[x].title);
 News.set("source", ArrayNews[x].source);
 News.set("currencies", ArrayNews[x].currencies);
+News.set("Coins", AllCoins);
 News.set("published_at", ArrayNews[x].published_at);
 News.set("url", ArrayNews[x].url);
 News.set("CountLikes", 0);
@@ -118,7 +119,7 @@ News.save().then(function(results) {
 
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
-		page+1;
+		page++;
 		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
