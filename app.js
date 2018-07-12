@@ -18,7 +18,7 @@ var redis = new Redis(process.env.REDIS_URL);
 app.listen(process.env.PORT, function () {
   console.log('Example app listening on port 8000!');
 
-var page = 4;
+var page = 5;
 
 getLastNews();
 
