@@ -7,14 +7,6 @@ var Parse = require('parse/node');
 var express = require('express');
 var app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-// use port 3000 unless there exists a preconfigured port
-var port = process.env.port || 3000;
-
-
-
 Parse.initialize(process.env.APP_ID, process.env.JS_KEY ,process.env.MASTER_KEY);
 Parse.serverURL = process.env.SERVER_URL;
 
@@ -22,6 +14,9 @@ Parse.serverURL = process.env.SERVER_URL;
 // Connect Redis
 var redis = new Redis(process.env.REDIS_URL);
 
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 
 var page = 1;
 
@@ -42,7 +37,7 @@ Query_News.find().then(function(objCoin){
 var ID = objCoin[i].get("ID");
 AllCoinsFromParse.push(ID);
 }
-return reqTimer = setTimeout(GetNewsApi, 60000);
+return reqTimer = setTimeout(GetNewsApi, 30000);
 console.log(AllCoinsFromParse);
  });
 }
@@ -71,7 +66,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
      saveNews(0, ArrayNews);
     }
 })
-   return reqTimer = setTimeout(GetNewsApi, 60000);
+   return reqTimer = setTimeout(GetNewsApi, 30000);
 }
 
 var omitted = 0;
@@ -140,7 +135,7 @@ console.log(AllCoinsFromParse);
  });
 }
 
-app.listen(port);
+});
 
 
 
