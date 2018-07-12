@@ -18,7 +18,7 @@ var redis = new Redis(process.env.REDIS_URL);
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 
-var page = 1;
+var page = 2;
 
 getLastNews();
 
@@ -74,7 +74,7 @@ var omitted = 0;
 function saveNews(x, ArrayNews){
 if(omitted == 10){
 page = 1;	
-return reqTimer = setTimeout(GetNewsApi, 60000);
+return reqTimer = setTimeout(GetNewsApi, 30000);
 }else{
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){
 console.log(ArrayNews[x].ID+" ID already exist");
@@ -103,7 +103,7 @@ News.save().then(function(results) {
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
 		page+1;
-		return reqTimer = setTimeout(GetNewsApi, 60000);
+		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
     saveNews(x+1, ArrayNews);
