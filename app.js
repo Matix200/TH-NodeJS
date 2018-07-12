@@ -69,9 +69,19 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
    return reqTimer = setTimeout(GetNewsApi, 30000);
 }
 
+
+
+
+
 var omitted = 0;
 
+
+
+
+
+
 function saveNews(x, ArrayNews){
+setTimeout(function(){  
 if(omitted == 10){
 page = 1;
 omitted = 0;	
@@ -81,9 +91,9 @@ return reqTimer = setTimeout(GetNewsApi, 30000);
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){
 console.log(ArrayNews[x].ID+" ID already exist");
 omitted++;
-saveNews(x+1, ArrayNews);
+return saveNews(x+1, ArrayNews);
 }else{	
-setTimeout(function(){  
+
     var e = new Date(ArrayNews[x].published_at);
     var c = new Date(ArrayNews[x].created_at);
   //  e.setDate(e.getDate() + 1);
@@ -108,15 +118,17 @@ News.save().then(function(results) {
 		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
-    saveNews(x+1, ArrayNews);
+    return saveNews(x+1, ArrayNews);
 	}
   })
   .catch(function(error) {
   	console.log("GIT: "+ error.message);
-    saveNews(x, ArrayNews);
+    return saveNews(x, ArrayNews);
   });
+
+}}
 },200);
-}}}
+}
 
 
 
