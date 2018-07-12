@@ -2,6 +2,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
+var http = require('http');
 var Redis = require('ioredis');
 var Parse = require('parse/node');
 
