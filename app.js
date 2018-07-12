@@ -15,8 +15,8 @@ Parse.serverURL = process.env.SERVER_URL;
 var redis = new Redis(process.env.REDIS_URL);
 
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(process.env.PORT, function () {
+  console.log('Example app listening on port 8000!');
 
 var page = 4;
 
