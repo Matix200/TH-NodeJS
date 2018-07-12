@@ -18,7 +18,7 @@ var redis = new Redis(process.env.REDIS_URL);
 app.listen(process.env.PORT, function () {
   console.log('Example app listening on port 8000!');
 
-var page = 5;
+var page = 1;
 
 getLastNews();
 
@@ -74,6 +74,7 @@ var omitted = 0;
 function saveNews(x, ArrayNews){
 if(omitted == 10){
 page = 1;	
+console.log("Get next NEWS ommited")
 return reqTimer = setTimeout(GetNewsApi, 30000);
 }else{
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){
