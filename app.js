@@ -33,12 +33,12 @@ Query_News.find().then(function(objCoin){
 var ID = objCoin[i].get("ID");
 AllCoinsFromParse.push(ID);
 }
-reqTimer = setTimeout(GetNewsApi, 60000);
+return reqTimer = setTimeout(GetNewsApi, 60000);
 console.log(AllCoinsFromParse);
  });
 }
 
-var reqTimer = setTimeout(function GetNewsApi() {
+function GetNewsApi() {
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page, function (error, response, body) {
 	ArrayNews = [];
     if (!error && response.statusCode == 200) {
@@ -63,7 +63,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
     }
 })
    return reqTimer = setTimeout(GetNewsApi, 60000);
-}, 60000);
+}
 
 var omitted = 0;
 
@@ -131,7 +131,7 @@ console.log(AllCoinsFromParse);
  });
 }
 
-
+http.createServer(onRequest).listen(process.env.PORT || 6000)
 
 
 
