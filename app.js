@@ -73,7 +73,8 @@ var omitted = 0;
 
 function saveNews(x, ArrayNews){
 if(omitted == 10){
-page = 1;	
+page = 1;
+omitted = 0;	
 console.log("Get next NEWS ommited")
 return reqTimer = setTimeout(GetNewsApi, 30000);
 }else{
