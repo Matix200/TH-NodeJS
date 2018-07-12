@@ -33,7 +33,7 @@ Query_News.find().then(function(objCoin){
 var ID = objCoin[i].get("ID");
 AllCoinsFromParse.push(ID);
 }
-GetNewsApi();
+reqTimer = setTimeout(GetNewsApi, 60000);
 console.log(AllCoinsFromParse);
  });
 }
@@ -69,8 +69,8 @@ var omitted = 0;
 
 function saveNews(x, ArrayNews){
 if(omitted == 10){
-GetNewsApi(1);
-return true
+page = 1;	
+return reqTimer = setTimeout(GetNewsApi, 60000);
 }else{
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){
 console.log(ArrayNews[x].ID+" ID already exist");
@@ -99,7 +99,7 @@ News.save().then(function(results) {
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
 		page+1;
-		GetNewsApi();
+		return reqTimer = setTimeout(GetNewsApi, 60000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
     saveNews(x+1, ArrayNews);
