@@ -2,9 +2,17 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
-var http = require('http');
 var Redis = require('ioredis');
 var Parse = require('parse/node');
+var express = require('express');
+var app = express();
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+// use port 3000 unless there exists a preconfigured port
+var port = process.env.port || 3000;
+
 
 
 Parse.initialize(process.env.APP_ID, process.env.JS_KEY ,process.env.MASTER_KEY);
@@ -132,7 +140,7 @@ console.log(AllCoinsFromParse);
  });
 }
 
-http.createServer(onRequest).listen(process.env.PORT || 6000)
+app.listen(port);
 
 
 

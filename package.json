@@ -11,7 +11,9 @@
 		"websocket": "1.0.x",
 		"mongodb": "3.1.1",
 		"ioredis": "3.2.2",
+		"express": "4.16.3",
 		"parse": "1.11.1",
+
 		"request": "*"
 		}, 
 	"license": "MIT",
