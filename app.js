@@ -98,7 +98,7 @@ News.set("published_at", ArrayNews[x].published_at);
 News.set("url", ArrayNews[x].url);
 News.set("CountLikes", 0);
 News.save().then(function(results) {
-	console.log("GIT: "+ results+" x:"+x+" max:"+ArrayNews.length+" y:"+y);
+	console.log("GIT: "+ results+" x:"+x+" max:"+ArrayNews.length+" y:"+page);
 
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
@@ -111,7 +111,7 @@ News.save().then(function(results) {
   })
   .catch(function(error) {
   	console.log("GIT: "+ error.message);
-    saveNews(x, y, ArrayNews);
+    saveNews(x, ArrayNews);
   });
 },200);
 }}}
