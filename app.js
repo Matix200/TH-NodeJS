@@ -185,13 +185,10 @@ return Calendar = setTimeout(getCalendar, 1000);
 var AllINFOCalendar = [];
 function getCalendar(){  
 AllINFOCalendar = [];
-var url =  "https://api.coinmarketcal.com/v1/events?access_token=ZTkzNDE1MWUwMWJjNWUwZTI0ZDg2MTU4MDQ3YzgwZmJlMmNiNjRlMmE4MTU1NWU4N2M5N2I1YTllNzcwYzYyOA&page="+countCalendarAPI+"&max=50";
-$.ajax({
-    url: url,
-    type: "GET",     
-    dataType : 'json', //ustawiamy typ danych na json
-    success : function(json) {      
-var Events = json;
+
+request('https://api.coinmarketcal.com/v1/events?access_token=ZTkzNDE1MWUwMWJjNWUwZTI0ZDg2MTU4MDQ3YzgwZmJlMmNiNjRlMmE4MTU1NWU4N2M5N2I1YTllNzcwYzYyOA&page='+countCalendarAPI+'&max=50', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+var Events = body;
 console.log(json);
 for(var i in Events){
 var EVENT_COINS = [];
@@ -219,8 +216,6 @@ EVENT_COINS.push({
         "IMG": IMG,
         "Symbol": Symbol
       })
-
-
 }else{}
 
 
@@ -244,14 +239,8 @@ console.log(AllINFOCalendar);
 return Events = setTimeout(GetEvents, 1000);
 
                                   
-    },
-    complete: function() {
-        $("#loading").hide();
-    },
-    error: function() {
-        console.log( "Wystąpił błąd w połączeniu :(");
     }
-});
+})
 }
 
 
