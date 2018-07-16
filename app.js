@@ -45,7 +45,6 @@ console.log(AllCoinsFromParse);
 
 function GetNewsApi() {
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page, function (error, response, body) {
-	ArrayNews = [];
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
       info = info.results;
@@ -65,7 +64,7 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   		})
       }
      x = 0;
-     var SaveTime = setTimeout(saveNews, 3000);
+     return SaveTime = setTimeout(saveNews, 3000);
     }
 })
 }
@@ -135,23 +134,214 @@ News.save().then(function(results) {
 }
 
 
+// GET CALENDAR API
+getAllCoinsValueFromParse();
+
+// variables
+var countCalendarAPI = 1;
+var countEvents = 0;
+var ommitedCalendar = 0;
+var AllParseCalendar_VALUE = [];
+var ALL_COINS_PARSE_JSON = [];
 
 
-
-function getAllCoinsValueFromCMC(){
-var AllCoinsFromParse = [];    
+function getAllCoinsValueFromParse(){
+var AllCoinsFromParseCalendar = [];    
 var CryptoCurrency = Parse.Object.extend("CryptoCurrency");
 var Query_CryptoCurrency = new Parse.Query(CryptoCurrency);
-Query_CryptoCurrency.exists("IMGfile");
+Query_CryptoCurrency.exists("IDCoin");
 Query_CryptoCurrency.limit(2000);
 Query_CryptoCurrency.find().then(function(objCoin){
+    console.log(objCoin);
     for(var i in objCoin){
-var idname = objCoin[i].get("IMGfile");
-AllCoinsFromParse.push(idname);
+
+var idname = objCoin[i].get("IDCoin");
+var idcmc = objCoin[i].get("IDCMC");
+var symbol = objCoin[i].get("Symbol");
+
+ALL_COINS_PARSE_JSON.push({
+        "idName": idname,
+        "idcmc": idcmc,
+        "symbol": symbol
+      })
+
+AllCoinsFromParseCalendar.push(idname);
 }
-console.log(AllCoinsFromParse);
+AllParseCalendar_VALUE = AllCoinsFromParseCalendar;
+console.log(AllParseCalendar_VALUE);
+
+return Calendar = setTimeout(getCalendar, 1000);
+
  });
+
 }
+
+
+
+
+
+
+
+var AllINFOCalendar = [];
+function getCalendar(){  
+AllINFOCalendar = [];
+var url =  "https://api.coinmarketcal.com/v1/events?access_token=ZTkzNDE1MWUwMWJjNWUwZTI0ZDg2MTU4MDQ3YzgwZmJlMmNiNjRlMmE4MTU1NWU4N2M5N2I1YTllNzcwYzYyOA&page="+countCalendarAPI+"&max=50";
+$.ajax({
+    url: url,
+    type: "GET",     
+    dataType : 'json', //ustawiamy typ danych na json
+    success : function(json) {      
+var Events = json;
+console.log(json);
+for(var i in Events){
+var EVENT_COINS = [];
+var id = Events[i].id;
+var title = Events[i].title;
+var coins = Events[i].coins;
+var date_event = Events[i].date_event;
+var created_date = Events[i].created_date;
+var description = Events[i].description;
+var source = Events[i].source;
+var is_hot = Events[i].is_hot;
+
+for(var c in coins){
+var coinsID = coins[c].id;
+
+if(AllParseCalendar_VALUE.indexOf(coinsID) > -1){
+var All_JSON = iscoinExistsCalendar(coinsID);
+console.log(All_JSON);
+var IMG = All_JSON[0].idcmc;
+var Symbol = All_JSON[0].symbol;
+
+
+EVENT_COINS.push({
+        "idName": coinsID,
+        "IMG": IMG,
+        "Symbol": Symbol
+      })
+
+
+}else{}
+
+
+}
+     AllINFOCalendar.push({
+        "id": id,
+        "title": title,
+        "coins"      : EVENT_COINS,
+        "date_event"     : date_event,
+        "created_date" : created_date,
+        "description" : description,
+        "source" : source,
+        "is_hot" : is_hot
+      })
+
+
+}
+
+console.log(AllINFOCalendar);
+
+return Events = setTimeout(GetEvents, 1000);
+
+                                  
+    },
+    complete: function() {
+        $("#loading").hide();
+    },
+    error: function() {
+        console.log( "Wystąpił błąd w połączeniu :(");
+    }
+});
+}
+
+
+
+function GetEvents(){
+    if(countEvents > 49){
+    	countCalendarAPI++;
+    	return Calendar = setTimeout(getCalendar, 1000);
+    }else{
+    setTimeout(function(){  
+    var id = AllINFOCalendar[countEvents].id;
+    var coins = AllINFOCalendar[countEvents].coins;
+
+    if(coins.length > 0){
+    console.log(id);      
+var Calendar = Parse.Object.extend("Calendar");
+var Query_Calendar = new Parse.Query(Calendar);
+    Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
+Query_Calendar.first().then(function(obj){
+if(obj == null) { 
+   console.log(AllINFOCalendar[countEvents]); 
+
+
+return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  AllINFOCalendar[countEvents].coins,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot, countEvents);
+
+
+}else{
+if(ommitedCalendar == 10){
+countCalendarAPI = 1;
+ommitedCalendar = 0;
+return Calendar = setTimeout(getCalendar, 1000);
+}else{
+countEvents++;
+return Events = setTimeout(GetEvents, 1000);
+console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalendarAPI+" pozycja: "+countEvents);
+}}
+
+});
+}else{
+
+    console.log("Pominieto coina");
+    	countEvents++;
+        return Events = setTimeout(GetEvents, 1000);
+}
+},200);
+}
+}
+
+
+function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot, x){
+    var e = new Date(eDate);
+    var c = new Date(cDate);
+    e.setDate(e.getDate() + 1);
+    c.setDate(c.getDate() + 1);
+
+setTimeout(function(){  
+var Calendar = Parse.Object.extend("Calendar");
+Calendar  = new Calendar();
+Calendar.set("IdCoinmarketcal", id.toString());
+Calendar.set("Title", Title);
+Calendar.set("AllCOINS", AllCOINS);
+Calendar.set("eDate", e);
+Calendar.set("cDate", c);
+Calendar.set("Content", Content);
+Calendar.set("Source", Source);
+Calendar.set("isHot", isHot);
+Calendar.set("CountLikes", 0);
+Calendar.save({
+    success: function(obj) {
+console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+x);
+countEvents = x+1;
+return Events = setTimeout(GetEvents, 1000);
+    },
+    error: function(obj, error) {
+      console.log(error);
+    }
+});
+},200);
+}
+
+
+function iscoinExistsCalendar(code) {
+var json = JSON.parse(JSON.stringify(ALL_COINS_PARSE_JSON));
+  return json.filter(
+    function(json) {
+      return json.idName == code 
+    }
+  );
+}
+
 
 });
 
