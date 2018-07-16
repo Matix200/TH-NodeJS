@@ -171,7 +171,7 @@ AllCoinsFromParseCalendar.push(idname);
 AllParseCalendar_VALUE = AllCoinsFromParseCalendar;
 console.log(AllParseCalendar_VALUE);
 
-return Calendar = setTimeout(getCalendar, 1000);
+return Calendar = setTimeout(getCalendar, 30000);
 
  });
 
@@ -207,7 +207,6 @@ var coinsID = coins[c].id;
 
 if(AllParseCalendar_VALUE.indexOf(coinsID) > -1){
 var All_JSON = iscoinExistsCalendar(coinsID);
-console.log(All_JSON);
 var IMG = All_JSON[0].idcmc;
 var Symbol = All_JSON[0].symbol;
 
@@ -235,8 +234,6 @@ EVENT_COINS.push({
 
 }
 
-console.log(AllINFOCalendar);
-
 return Events = setTimeout(GetEvents, 1000);
 
                                   
@@ -249,7 +246,7 @@ return Events = setTimeout(GetEvents, 1000);
 function GetEvents(){
     if(countEvents > 49){
     	countCalendarAPI++;
-    	return Calendar = setTimeout(getCalendar, 1000);
+    	return Calendar = setTimeout(getCalendar, 30000);
     }else{
     setTimeout(function(){  
     var id = AllINFOCalendar[countEvents].id;
@@ -262,9 +259,6 @@ var Query_Calendar = new Parse.Query(Calendar);
     Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
 Query_Calendar.first().then(function(obj){
 if(obj == null) { 
-   console.log(AllINFOCalendar[countEvents]); 
-
-
 return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  AllINFOCalendar[countEvents].coins,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot, countEvents);
 
 
@@ -272,7 +266,7 @@ return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents
 if(ommitedCalendar == 10){
 countCalendarAPI = 1;
 ommitedCalendar = 0;
-return Calendar = setTimeout(getCalendar, 1000);
+return Calendar = setTimeout(getCalendar, 30000);
 }else{
 countEvents++;
 return Events = setTimeout(GetEvents, 1000);
