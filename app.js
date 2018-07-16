@@ -143,7 +143,7 @@ var countEvents = 0;
 var ommitedCalendar = 0;
 var AllParseCalendar_VALUE = [];
 var ALL_COINS_PARSE_JSON = [];
-var URL_COINMARKETCAL = 'https://api.coinmarketcal.com/v1/events?access_token=ZWI3ZmM1MjNhNzM3YTJjZWMxZWMzY2NiNmZkMjFmOTRiNmYyZWM0YjE4NGFkMDdlYmVjNmQyZmMzY2Q4MWE3MQ&page='+countCalendarAPI+'&max=50';
+var URL_COINMARKETCAL = 'https://api.coinmarketcal.com/v1/events?access_token=ZWI3ZmM1MjNhNzM3YTJjZWMxZWMzY2NiNmZkMjFmOTRiNmYyZWM0YjE4NGFkMDdlYmVjNmQyZmMzY2Q4MWE3MQ&page='+countCalendarAPI+'&max=50&sortBy=created_desc';
 
 
 function getAllCoinsValueFromParse(){
@@ -286,10 +286,17 @@ console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalen
 
 
 function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot, x){
+	var COINS = [];
     var e = new Date(eDate);
     var c = new Date(cDate);
     e.setDate(e.getDate() + 1);
     c.setDate(c.getDate() + 1);
+
+    for(var c in AllCOINS){
+    	COINS.push(AllCOINS[c].symbol);
+    }
+
+
 
 setTimeout(function(){  
 var Calendar = Parse.Object.extend("Calendar");
@@ -297,6 +304,7 @@ Calendar  = new Calendar();
 Calendar.set("IdCoinmarketcal", id.toString());
 Calendar.set("Title", Title);
 Calendar.set("AllCOINS", AllCOINS);
+Calendar.set("Coins", COINS);
 Calendar.set("eDate", e);
 Calendar.set("cDate", c);
 Calendar.set("Content", Content);
