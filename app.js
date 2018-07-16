@@ -143,6 +143,7 @@ var countEvents = 0;
 var ommitedCalendar = 0;
 var AllParseCalendar_VALUE = [];
 var ALL_COINS_PARSE_JSON = [];
+var URL_COINMARKETCAL = 'https://api.coinmarketcal.com/v1/events?access_token=ZWI3ZmM1MjNhNzM3YTJjZWMxZWMzY2NiNmZkMjFmOTRiNmYyZWM0YjE4NGFkMDdlYmVjNmQyZmMzY2Q4MWE3MQ&page='+countCalendarAPI+'&max=50';
 
 
 function getAllCoinsValueFromParse(){
@@ -186,10 +187,10 @@ var AllINFOCalendar = [];
 function getCalendar(){  
 AllINFOCalendar = [];
 
-request('https://api.coinmarketcal.com/v1/events?access_token=ZTkzNDE1MWUwMWJjNWUwZTI0ZDg2MTU4MDQ3YzgwZmJlMmNiNjRlMmE4MTU1NWU4N2M5N2I1YTllNzcwYzYyOA&page='+countCalendarAPI+'&max=50', function (error, response, body) {
+request(URL_COINMARKETCAL, function (error, response, body) {
     if (!error && response.statusCode == 200) {
 var Events = JSON.parse(body);
-console.log(json);
+
 for(var i in Events){
 var EVENT_COINS = [];
 var id = Events[i].id;
