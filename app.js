@@ -188,7 +188,7 @@ AllINFOCalendar = [];
 
 request('https://api.coinmarketcal.com/v1/events?access_token=ZTkzNDE1MWUwMWJjNWUwZTI0ZDg2MTU4MDQ3YzgwZmJlMmNiNjRlMmE4MTU1NWU4N2M5N2I1YTllNzcwYzYyOA&page='+countCalendarAPI+'&max=50', function (error, response, body) {
     if (!error && response.statusCode == 200) {
-var Events = body;
+var Events = JSON.parse(body);
 console.log(json);
 for(var i in Events){
 var EVENT_COINS = [];
