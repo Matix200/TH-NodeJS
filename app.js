@@ -235,6 +235,7 @@ EVENT_COINS.push({
 
 }
 
+countEvents = 0;
 return Events = setTimeout(GetEvents, 1000);
 
                                   
@@ -299,7 +300,7 @@ function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHo
 
 
 
-setTimeout(function(){  
+
 var Calendar = Parse.Object.extend("Calendar");
 Calendar  = new Calendar();
 Calendar.set("IdCoinmarketcal", id.toString());
@@ -312,17 +313,15 @@ Calendar.set("Content", Content);
 Calendar.set("Source", Source);
 Calendar.set("isHot", isHot);
 Calendar.set("CountLikes", 0);
-Calendar.save({
-    success: function(obj) {
+Calendar.save.then(function(results) {
 console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+x);
 countEvents = x+1;
 return Events = setTimeout(GetEvents, 1000);
-    },
-    error: function(obj, error) {
-      console.log(error);
-    }
-});
-},200);
+  })
+  .catch(function(error) {
+  	console.log("error: "+ error.message);
+  });
+
 }
 
 
