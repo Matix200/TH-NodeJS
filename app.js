@@ -244,7 +244,14 @@ return EventsCalendar = setTimeout(GetEvents, 1000);
 
 
 function GetEvents(){
-    if(countEvents > 49){
+if(ommitedCalendar == 10){
+countCalendarAPI = 1;
+ommitedCalendar = 0;
+console.log("Get next Calendar ommited")
+return Calendar = setTimeout(getCalendar, 30000);
+}else{
+
+    if((AllINFOCalendar.length - 1) == countEvents){
     	countCalendarAPI++;
     	countEvents = 0;
     	console.log("Get next Calendar page: "+ countCalendarAPI)
@@ -265,16 +272,11 @@ return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents
 
 
 }else{
-if(ommitedCalendar == 10){
-countCalendarAPI = 1;
-ommitedCalendar = 0;
-console.log("Get next Calendar ommited")
-return Calendar = setTimeout(getCalendar, 30000);
-}else{
 countEvents++;
-console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalendarAPI+" pozycja: "+countEvents);
+ommitedCalendar++;
+console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalendarAPI+" pozycja: "+countEvents+" z "+AllINFOCalendar.length);
 return EventsCalendar = setTimeout(GetEvents, 1000);
-}}
+}
 
 });
 }else{
