@@ -286,7 +286,7 @@ return EventsCalendar = setTimeout(GetEvents, 1000);
         return EventsCalendar = setTimeout(GetEvents, 1000);
 }
 }
-}
+}}
 
 
 function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot){
