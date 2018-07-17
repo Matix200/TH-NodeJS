@@ -23,7 +23,7 @@ var page = 1;
 var x = 0;
 
 getLastNews();
-
+//getAllCoinsValueFromParse();
 
 var ArrayNews = [];
 var AllCoinsFromParse = [];
@@ -135,9 +135,7 @@ News.save().then(function(results) {
 }
 
 
-// GET CALENDAR API
-getAllCoinsValueFromParse();
-
+/*
 // variables
 var countCalendarAPI = 1;
 var countEvents = 0;
@@ -314,7 +312,7 @@ Calendar.set("isHot", isHot);
 Calendar.set("CountLikes", 0);
 Calendar.save().then(function(results) {
 console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+countEvents);
-countEvents++
+countEvents++;
 return Events = setTimeout(GetEvents, 1000);
   })
   .catch(function(error) {
@@ -332,6 +330,7 @@ var json = JSON.parse(JSON.stringify(ALL_COINS_PARSE_JSON));
     }
   );
 }
+*/
 
 
 });
