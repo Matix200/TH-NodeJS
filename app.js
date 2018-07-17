@@ -287,7 +287,7 @@ console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalen
 }
 
 
-function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot, x){
+function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot, z){
 	var COINS = [];
     var e = new Date(eDate);
     var c = new Date(cDate);
@@ -315,7 +315,7 @@ Calendar.set("isHot", isHot);
 Calendar.set("CountLikes", 0);
 Calendar.save.then(function(results) {
 console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+x);
-countEvents = x+1;
+countEvents = z+1;
 return Events = setTimeout(GetEvents, 1000);
   })
   .catch(function(error) {
