@@ -233,7 +233,7 @@ EVENT_COINS.push({
 
 }
 
-
+countEvents = 0;
 return EventsCalendar = setTimeout(GetEvents, 1000);
 
                                   
