@@ -31,8 +31,8 @@ function getLastNews(){
 var News = Parse.Object.extend("News");
 var Query_News = new Parse.Query(News);
 Query_News.exists("ID");
-Query_News.limit(300);
 Query_News.descending("createdAt");
+Query_News.limit(300);
 Query_News.find().then(function(objCoin){
     for(var i in objCoin){
 var ID = objCoin[i].get("ID");
@@ -44,6 +44,7 @@ console.log(AllCoinsFromParse);
 }
 
 function GetNewsApi() {
+	console.log(page);
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
