@@ -290,8 +290,8 @@ function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHo
 	var COINS = [];
     var e = new Date(eDate);
     var c = new Date(cDate);
-    e.setDate(e.getDate() + 1);
-    c.setDate(c.getDate() + 1);
+    var eEVENT = e.setDate(e.getTime() + 86400000);
+    var cEVENT = c.setDate(c.getTime() + 86400000);
 
     for(var c in AllCOINS){
     	COINS.push(AllCOINS[c].symbol);
@@ -306,8 +306,8 @@ Calendar.set("IdCoinmarketcal", id.toString());
 Calendar.set("Title", Title);
 Calendar.set("AllCOINS", AllCOINS);
 Calendar.set("Coins", COINS);
-Calendar.set("eDate", e);
-Calendar.set("cDate", c);
+Calendar.set("eDate", eEVENT);
+Calendar.set("cDate", cEVENT);
 Calendar.set("Content", Content);
 Calendar.set("Source", Source);
 Calendar.set("isHot", isHot);
