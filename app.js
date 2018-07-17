@@ -144,7 +144,6 @@ var countEvents = 0;
 var ommitedCalendar = 0;
 var AllParseCalendar_VALUE = [];
 var ALL_COINS_PARSE_JSON = [];
-var URL_COINMARKETCAL = 'https://api.coinmarketcal.com/v1/events?access_token=ZWI3ZmM1MjNhNzM3YTJjZWMxZWMzY2NiNmZkMjFmOTRiNmYyZWM0YjE4NGFkMDdlYmVjNmQyZmMzY2Q4MWE3MQ&page='+countCalendarAPI+'&max=50&sortBy=created_desc';
 
 
 function getAllCoinsValueFromParse(){
@@ -188,10 +187,9 @@ var AllINFOCalendar = [];
 function getCalendar(){  
 AllINFOCalendar = [];
 
-request(URL_COINMARKETCAL, function (error, response, body) {
+request('https://api.coinmarketcal.com/v1/events?access_token=ZWI3ZmM1MjNhNzM3YTJjZWMxZWMzY2NiNmZkMjFmOTRiNmYyZWM0YjE4NGFkMDdlYmVjNmQyZmMzY2Q4MWE3MQ&page='+countCalendarAPI+'&max=50&sortBy=created_desc', function (error, response, body) {
     if (!error && response.statusCode == 200) {
 var Events = JSON.parse(body);
-
 for(var i in Events){
 var EVENT_COINS = [];
 var id = Events[i].id;
@@ -236,7 +234,7 @@ EVENT_COINS.push({
 }
 
 
-return Events = setTimeout(GetEvents, 1000);
+return EventsCalendar = setTimeout(GetEvents, 1000);
 
                                   
     }
@@ -249,11 +247,10 @@ function GetEvents(){
     if(countEvents > 49){
     	countCalendarAPI++;
     	countEvents = 0;
-    	AllINFOCalendar = [];
-    	EVENT_COINS = [];
+    	console.log("Get next Calendar page: "+ countCalendarAPI)
     	return Calendar = setTimeout(getCalendar, 30000);
     }else{
-    setTimeout(function(){  
+ 
     var id = AllINFOCalendar[countEvents].id;
     var coins = AllINFOCalendar[countEvents].coins;
 
@@ -271,11 +268,12 @@ return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents
 if(ommitedCalendar == 10){
 countCalendarAPI = 1;
 ommitedCalendar = 0;
+console.log("Get next Calendar ommited")
 return Calendar = setTimeout(getCalendar, 30000);
 }else{
 countEvents++;
-return Events = setTimeout(GetEvents, 1000);
 console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalendarAPI+" pozycja: "+countEvents);
+return EventsCalendar = setTimeout(GetEvents, 1000);
 }}
 
 });
@@ -283,9 +281,8 @@ console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalen
 
     console.log("Pominieto coina");
     	countEvents++;
-        return Events = setTimeout(GetEvents, 1000);
+        return EventsCalendar = setTimeout(GetEvents, 1000);
 }
-},200);
 }
 }
 
