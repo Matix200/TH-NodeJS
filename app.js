@@ -292,6 +292,8 @@ function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHo
     var c = new Date(cDate);
     var eEVENT = e.setDate(e.getTime() + 86400000);
     var cEVENT = c.setDate(c.getTime() + 86400000);
+    eEVENT.toLocaleDateString();
+    cEVENT.toLocaleDateString();
 
     for(var c in AllCOINS){
     	COINS.push(AllCOINS[c].symbol);
