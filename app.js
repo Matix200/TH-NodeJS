@@ -235,7 +235,7 @@ EVENT_COINS.push({
 
 }
 
-countEvents = 0;
+
 return Events = setTimeout(GetEvents, 1000);
 
                                   
@@ -248,6 +248,7 @@ return Events = setTimeout(GetEvents, 1000);
 function GetEvents(){
     if(countEvents > 49){
     	countCalendarAPI++;
+    	countEvents = 0;
     	return Calendar = setTimeout(getCalendar, 30000);
     }else{
     setTimeout(function(){  
@@ -261,7 +262,7 @@ var Query_Calendar = new Parse.Query(Calendar);
     Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
 Query_Calendar.first().then(function(obj){
 if(obj == null) { 
-return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  AllINFOCalendar[countEvents].coins,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot, countEvents);
+return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  AllINFOCalendar[countEvents].coins,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot);
 
 
 }else{
@@ -287,7 +288,7 @@ console.log("Pominieto: "+AllINFOCalendar[countEvents].id+" Strona: "+countCalen
 }
 
 
-function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot, z){
+function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot){
 	var COINS = [];
     var e = new Date(eDate);
     var c = new Date(cDate);
@@ -310,9 +311,9 @@ Calendar.set("Content", Content);
 Calendar.set("Source", Source);
 Calendar.set("isHot", isHot);
 Calendar.set("CountLikes", 0);
-Calendar.save.then(function(results) {
-console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+z);
-countEvents = z+1;
+Calendar.save().then(function(results) {
+console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+countEvents);
+countEvents++
 return Events = setTimeout(GetEvents, 1000);
   })
   .catch(function(error) {
