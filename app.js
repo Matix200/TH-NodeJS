@@ -294,7 +294,7 @@ function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHo
     c.setDate(c.getDate() + 1);
 
     for(var w in AllCOINS){
-    	COINS.push(AllCOINS[w].symbol);
+    	COINS.push(AllCOINS[w].Symbol);
     }
 
 
