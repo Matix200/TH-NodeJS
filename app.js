@@ -298,9 +298,6 @@ function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHo
     	COINS.push(AllCOINS[w].Symbol);
     }
 
-
-
-
 var Calendar = Parse.Object.extend("Calendar");
 Calendar  = new Calendar();
 Calendar.set("IdCoinmarketcal", id.toString());
@@ -314,7 +311,7 @@ Calendar.set("Source", Source);
 Calendar.set("isHot", isHot);
 Calendar.set("CountLikes", 0);
 Calendar.save.then(function(results) {
-console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+x);
+console.log("Dodano: "+id.toString()+" Strona: "+countCalendarAPI+" pozycja: "+z);
 countEvents = z+1;
 return Events = setTimeout(GetEvents, 1000);
   })
