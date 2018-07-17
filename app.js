@@ -4,7 +4,6 @@ const assert = require('assert');
 var request = require('request');
 var Redis = require('ioredis');
 var Parse = require('parse/node');
-var dateFormat = require('dateformat');
 var express = require('express');
 var app = express();
 
