@@ -249,6 +249,8 @@ function GetEvents(){
     if(countEvents > 49){
     	countCalendarAPI++;
     	countEvents = 0;
+    	AllINFOCalendar = [];
+    	EVENT_COINS = [];
     	return Calendar = setTimeout(getCalendar, 30000);
     }else{
     setTimeout(function(){  
