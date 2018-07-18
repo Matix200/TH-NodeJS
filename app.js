@@ -44,7 +44,7 @@ console.log(AllCoinsFromParse);
 }
 
 function GetNewsApi() {
-	console.log(page);
+	console.log(AllCoinsFromParse);
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page+'&metadata=true', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
