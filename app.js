@@ -50,10 +50,9 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
       var info = JSON.parse(body)
       info = info.results;
      // console.log(info);
-     console.log(info);
      
       for(var i in info){
-      	var metadata = info[i].metadata;
+      	console.log(info[i].metadata)
   		ArrayNews.push({
   			"ID" : info[i].id,
   			"created_at" : info[i].created_at,
@@ -62,8 +61,8 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   			"source" : info[i].source,
   			"currencies" : info[i].currencies,
   			"published_at" : info[i].published_at,
-  			"images" : metadata.image,
-  			"description" : metadata.description,
+  			//"images" : info[i].metadata,
+  			//"description" : info[i].metadata.description,
   			"url" : info[i].url
 
   		})
