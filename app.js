@@ -60,8 +60,8 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   			"source" : info[i].source,
   			"currencies" : info[i].currencies,
   			"published_at" : info[i].published_at,
-  			"images" : info[i].metadata.image,
-  			"description" : info[i].metadata.description,
+  			"images" : info[i].image,
+  			"description" : info[i].description,
   			"url" : info[i].url
 
   		})
