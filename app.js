@@ -12,7 +12,7 @@ Parse.serverURL = process.env.SERVER_URL;
 
 
 // Connect Redis
-var redis = new Redis(process.env.REDIS_URL);
+//var redis = new Redis(process.env.REDIS_URL);
 
 
 app.listen(process.env.PORT, function () {
