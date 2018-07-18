@@ -60,6 +60,8 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   			"source" : info[i].source,
   			"currencies" : info[i].currencies,
   			"published_at" : info[i].published_at,
+  			"images" : info[i].metadata.images,
+  			"description" : info[i].metadata.description,
   			"url" : info[i].url
 
   		})
@@ -111,6 +113,8 @@ News.set("source", ArrayNews[x].source);
 News.set("currencies", ArrayNews[x].currencies);
 News.set("Coins", AllCoins);
 News.set("published_at", ArrayNews[x].published_at);
+News.set("images", ArrayNews[x].images);
+News.set("description", ArrayNews[x].description);
 News.set("url", ArrayNews[x].url);
 News.set("CountLikes", 0);
 News.save().then(function(results) {
@@ -119,7 +123,8 @@ News.save().then(function(results) {
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
 		page++;
-		return reqTimer = setTimeout(GetNewsApi, 30000);
+		return;
+	//	return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
 	x++;
