@@ -52,9 +52,13 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
      // console.log(info);
      
       for(var i in info){
-      	var metadata = info[i].metadata;
+      	if(info[i].hasOwnProperty('metadata')){var metadata = info[i].metadata;
       	if(metadata.hasOwnProperty('image')) {var image = metadata.image;}else{var image = "null";}
       	if(metadata.hasOwnProperty('description')) {var description = metadata.description;}else{var description = "null";}
+      	}else{
+      	 var image = "null";
+      	 var description = "null";
+      	}
   		ArrayNews.push({
   			"ID" : info[i].id,
   			"created_at" : info[i].created_at,
