@@ -31,7 +31,7 @@ function getLastNews(){
 var News = Parse.Object.extend("News");
 var Query_News = new Parse.Query(News);
 Query_News.exists("ID");
-Query_News.descending("createdAt");
+Query_News.descending("created_at");
 Query_News.limit(300);
 Query_News.find().then(function(objCoin){
     for(var i in objCoin){
@@ -45,6 +45,7 @@ console.log(AllCoinsFromParse);
 
 function GetNewsApi() {
 	console.log(AllCoinsFromParse);
+	ArrayNews = [];
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page+'&metadata=true', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var info = JSON.parse(body)
@@ -129,8 +130,7 @@ News.save().then(function(results) {
 
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
-		page = page +1;
-		ArrayNews = [];
+		page = page + 1;
 		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
@@ -147,7 +147,7 @@ News.save().then(function(results) {
 }
 
 
-/*
+
 // variables
 var countCalendarAPI = 1;
 var countEvents = 0;
@@ -342,7 +342,6 @@ var json = JSON.parse(JSON.stringify(ALL_COINS_PARSE_JSON));
     }
   );
 }
-*/
 
 
 });
