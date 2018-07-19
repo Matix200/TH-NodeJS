@@ -127,7 +127,7 @@ News.save().then(function(results) {
 		console.log("Get next NEWS");
 		page++;
 		return;
-	//	return reqTimer = setTimeout(GetNewsApi, 30000);
+		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
 	AllCoinsFromParse.push(ArrayNews[x].ID);
 	x++;
