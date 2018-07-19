@@ -52,9 +52,9 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
      // console.log(info);
      
       for(var i in info){
-      	var meta = info[i].metadata;
-      	if(meta.image) var image = meta.image;
-      	if(meta.description) var description = meta.description;
+      	var metadata = info[i].metadata;
+      	if(metadata.image) var image = metadata.image;
+      	if(metadata.description) var description = metadata.description;
   		ArrayNews.push({
   			"ID" : info[i].id,
   			"created_at" : info[i].created_at,
