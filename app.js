@@ -22,7 +22,7 @@ var page = 1;
 var x = 0;
 
 getLastNews();
-//getAllCoinsValueFromParse();
+getAllCoinsValueFromParse();
 
 var ArrayNews = [];
 var AllCoinsFromParse = [];
@@ -44,7 +44,7 @@ console.log(AllCoinsFromParse);
 }
 
 function GetNewsApi() {
-	console.log(AllCoinsFromParse);
+	//console.log(AllCoinsFromParse);
 	ArrayNews = [];
 request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221ef81b21c6c365e0&page='+page+'&metadata=true', function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -127,13 +127,12 @@ News.set("url", ArrayNews[x].url);
 News.set("CountLikes", 0);
 News.save().then(function(results) {
 	console.log("GIT: "+ results+" x:"+x+" max:"+ArrayNews.length+" y:"+page);
-
+	AllCoinsFromParse.push(ArrayNews[x].ID);
 	if((ArrayNews.length - 1) == x){
 		console.log("Get next NEWS");
 		page = page + 1;
 		return reqTimer = setTimeout(GetNewsApi, 30000);
 	}else{
-	AllCoinsFromParse.push(ArrayNews[x].ID);
 	x++;
     return SaveTime = setTimeout(saveNews, 1000);
 	}
@@ -291,9 +290,15 @@ return EventsCalendar = setTimeout(GetEvents, 1000);
 });
 }else{
 
-    console.log("Pominieto coina");
-    	countEvents++;
-        return EventsCalendar = setTimeout(GetEvents, 1000);
+    console.log("Added without coins");
+var Calendar = Parse.Object.extend("Calendar");
+var Query_Calendar = new Parse.Query(Calendar);
+    Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
+Query_Calendar.first().then(function(obj){
+if(obj == null) { 
+return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  [  {"idName": "null","IMG": "null","Symbol": "null"}] ,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot);
+
+
 }
 }
 }}
