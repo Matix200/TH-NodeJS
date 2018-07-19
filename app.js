@@ -270,15 +270,20 @@ return Calendar = setTimeout(getCalendar, 30000);
     var id = AllINFOCalendar[countEvents].id;
     var coins = AllINFOCalendar[countEvents].coins;
 
-    if(coins.length > 0){
+    
     console.log(id);      
 var Calendar = Parse.Object.extend("Calendar");
 var Query_Calendar = new Parse.Query(Calendar);
     Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
 Query_Calendar.first().then(function(obj){
 if(obj == null) { 
+if(coins.length > 0){
 return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  AllINFOCalendar[countEvents].coins,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot);
+}else{
+console.log("Added without coins");
+return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  [  {"idName": "null","IMG": "null","Symbol": "null"}] ,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot);
 
+}
 
 }else{
 countEvents++;
@@ -288,20 +293,9 @@ return EventsCalendar = setTimeout(GetEvents, 1000);
 }
 
 });
-}else{
-
-    console.log("Added without coins");
-var Calendar = Parse.Object.extend("Calendar");
-var Query_Calendar = new Parse.Query(Calendar);
-    Query_Calendar.equalTo("IdCoinmarketcal", id.toString());
-Query_Calendar.first().then(function(obj){
-if(obj == null) { 
-return saveCalendar(AllINFOCalendar[countEvents].id, AllINFOCalendar[countEvents].title,  [  {"idName": "null","IMG": "null","Symbol": "null"}] ,  AllINFOCalendar[countEvents].date_event, AllINFOCalendar[countEvents].created_date, AllINFOCalendar[countEvents].description, AllINFOCalendar[countEvents].source, AllINFOCalendar[countEvents].is_hot);
-
-
 }
 }
-}}
+}
 
 
 function saveCalendar(id, Title, AllCOINS,  eDate, cDate, Content, Source,  isHot){
