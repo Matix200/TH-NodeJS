@@ -96,7 +96,7 @@ console.log("Get next NEWS ommited")
 return reqTimer = setTimeout(GetNewsApi, 30000);
 }else{
 if(AllCoinsFromParse.indexOf(ArrayNews[x].ID) > -1){
-console.log(ArrayNews[x].ID+" ID already exist");
+console.log(ArrayNews[x].ID+" ID already exist page: "+page);
 omitted++;
 x++;
 return SaveTime = setTimeout(saveNews, 1000);
