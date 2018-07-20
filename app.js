@@ -2,7 +2,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 var request = require('request');
-var Redis = require('ioredis');
 var Parse = require('parse/node');
 var express = require('express');
 var app = express();
@@ -53,9 +52,9 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
      // console.log(info);
      
       for(var i in info){
-      	if(info[i].hasOwnProperty('metadata')){var metadata = info[i].metadata;
-      	if(metadata.hasOwnProperty('image')) {var image = metadata.image;}else{var image = "null";}
-      	if(metadata.hasOwnProperty('description')) {var description = metadata.description;}else{var description = "null";}
+      	if(info[i].HasKey('metadata')){var metadata = info[i].metadata;
+      	if(metadata.HasKey('image')) {var image = metadata.image;}else{var image = "null";}
+      	if(metadata.HasKey('description')) {var description = metadata.description;}else{var description = "null";}
       	}else{
       	 var image = "null";
       	 var description = "null";
@@ -114,13 +113,13 @@ AllCoins.push(coins[c].code);
 var News = Parse.Object.extend("News");
 News  = new News();
 News.set("ID", ArrayNews[x].ID);
-News.set("created_at", ArrayNews[x].created_at);
+News.set("created_at", c);
 News.set("slug", ArrayNews[x].slug);
 News.set("title", ArrayNews[x].title);
 News.set("source", ArrayNews[x].source);
 News.set("currencies", ArrayNews[x].currencies);
 News.set("Coins", AllCoins);
-News.set("published_at", ArrayNews[x].published_at);
+News.set("published_at", e);
 News.set("images", ArrayNews[x].images);
 News.set("description", ArrayNews[x].description);
 News.set("url", ArrayNews[x].url);
