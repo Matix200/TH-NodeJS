@@ -103,8 +103,8 @@ x++;
 return SaveTime = setTimeout(saveNews, 1000);
 }else{	
 
-    var e = new Date(ArrayNews[x].published_at);
-    var c = new Date(ArrayNews[x].created_at);
+    var eDate = new Date(ArrayNews[x].published_at);
+    var cDate = new Date(ArrayNews[x].created_at);
 var coins = ArrayNews[x].currencies;
 var AllCoins = [];
 for(var c in coins){
@@ -114,13 +114,13 @@ AllCoins.push(coins[c].code);
 var News = Parse.Object.extend("News");
 News  = new News();
 News.set("ID", ArrayNews[x].ID);
-News.set("created_at", c);
+News.set("created_at", cDate);
 News.set("slug", ArrayNews[x].slug);
 News.set("title", ArrayNews[x].title);
 News.set("source", ArrayNews[x].source);
 News.set("currencies", ArrayNews[x].currencies);
 News.set("Coins", AllCoins);
-News.set("published_at", e);
+News.set("published_at", eDate);
 News.set("images", ArrayNews[x].images);
 News.set("description", ArrayNews[x].description);
 News.set("url", ArrayNews[x].url);
