@@ -131,7 +131,7 @@ for(var c in coins){
 AllCoins.push(coins[c].code);
 }
 if(ArrayNews[x].images == "null"){
-	if(ImageOmitted.indexOf(info[i].id) > -1){	
+	if(ImageOmitted.indexOf(ArrayNews[x].ID) > -1){	
 	}else{
 			ImageOmitted.push(ArrayNews[x].ID);
 		}
