@@ -42,6 +42,8 @@ console.log(AllCoinsFromParse);
  });
 }
 
+
+var ImageOmitted = [];
 function GetNewsApi() {
 	//console.log(AllCoinsFromParse);
 	ArrayNews = [];
@@ -73,6 +75,9 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
   			"url" : info[i].url
 
   		})
+  		if(ImageOmitted.indexOf(info[i].id) > -1 && image != "null"){
+  			updateImage(info[i].id, image);
+  		}
       }
      x = 0;
      return SaveTime = setTimeout(saveNews, 3000);
@@ -81,7 +86,18 @@ request('https://cryptopanic.com/api/posts/?auth_token=2f75a7bc9bc217ceebad0c221
 }
 
 
-
+function updateImage(id, image){
+var News = Parse.Object.extend("News");
+var NewsQuery = new Parse.Query(News);
+NewsQuery.equalTo("ID", id);
+NewsQuery.first().then(function(object) {
+object.set("images", image)
+object.save().then(function(results) {
+	console.log("Object "+ id+" updated")
+	return true;
+	})
+})
+}
 
 
 var omitted = 0;
@@ -109,6 +125,9 @@ var coins = ArrayNews[x].currencies;
 var AllCoins = [];
 for(var c in coins){
 AllCoins.push(coins[c].code);
+}
+if(ArrayNews[x].images == "null"){
+	ImageOmitted.push(ArrayNews[x].ID);
 }
 
 var News = Parse.Object.extend("News");
