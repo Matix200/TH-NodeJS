@@ -93,7 +93,11 @@ NewsQuery.equalTo("ID", id);
 NewsQuery.first().then(function(object) {
 object.set("images", image)
 object.save().then(function(results) {
-	console.log("Object "+ id+" updated")
+	console.log("Object "+ id+" updated");
+		var index = ImageOmitted.indexOf(id);
+if (index > -1) {
+  ImageOmitted.splice(index, 1);
+}
 	return true;
 	})
 })
