@@ -131,7 +131,10 @@ for(var c in coins){
 AllCoins.push(coins[c].code);
 }
 if(ArrayNews[x].images == "null"){
-	ImageOmitted.push(ArrayNews[x].ID);
+	if(ImageOmitted.indexOf(info[i].id) > -1){	
+	}else{
+			ImageOmitted.push(ArrayNews[x].ID);
+		}
 }
 
 var News = Parse.Object.extend("News");
